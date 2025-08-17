@@ -38,7 +38,7 @@
  **/
 
 export default class Blackboard {
-
+  dt = 0;
   /**
    * Initialization method.
    * @method initialize

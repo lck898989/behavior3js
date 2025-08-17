@@ -69,6 +69,8 @@ import Tick from './Tick';
 
 export default class BehaviorTree {
 
+  now = 0;
+
   /**
    * Initialization method.
    * @method initialize
@@ -291,7 +293,7 @@ export default class BehaviorTree {
    * @param {Blackboard} blackboard An instance of blackboard object.
    * @return {Constant} The tick signal state.
    **/
-  tick(target, blackboard) {
+  tick(target, blackboard,dt) {
     if (!blackboard) {
       throw 'The blackboard parameter is obligatory and must be an ' +
       'instance of b3.Blackboard';
@@ -303,6 +305,11 @@ export default class BehaviorTree {
     tick.target = target;
     tick.blackboard = blackboard;
     tick.tree = this;
+
+    if(dt) {
+      this.now += dt;
+      tick.blackboard.dt = dt;
+    }
 
     /* TICK NODE */
     var state = this.root._execute(tick);
